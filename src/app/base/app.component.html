@@ -1,0 +1,17 @@
+<nav class="nav-links blue large-padding light-text">
+       <a routerLink="/">
+              <span class="nav-title">What to do</span>
+       </a>
+
+       <div class="float-right" *ngIf="afAuth.authState | async">
+              <a routerLink="/">
+                     <i class="fa fa-list small-font"></i>
+                     <span class="small-font">Mis listas</span>
+              </a>
+
+              <a routerLink="#" (click)="logout()">
+                     <i class="fa fa-sign-out"></i>
+              </a>
+       </div>
+</nav>
+<router-outlet></router-outlet>
