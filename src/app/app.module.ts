@@ -19,6 +19,9 @@ import { AuthGuard } from './guards/auth.guard.services';
 import { UserService } from './services/user.service';
 import { ListCreatorComponent } from './creator/list.creator.component';
 import { FormsModule } from '@angular/forms';
+import { ListService } from './services/lists.services';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +39,7 @@ import { FormsModule } from '@angular/forms';
     AngularFireAuthModule,
     FormsModule
   ],
-  providers: [AuthService, AuthGuard, UserService],
+  providers: [AuthService, AuthGuard, UserService,ListService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,6 +1,6 @@
 export interface ILista {
     id?: string;
     title: string;
-    createdAt?: any
+    description?: string;
+    createdAt?: any;
 }
-
