@@ -20,6 +20,7 @@ import { UserService } from './services/user.service';
 import { ListCreatorComponent } from './creator/list.creator.component';
 import { FormsModule } from '@angular/forms';
 import { ListService } from './services/lists.services';
+import { ListComponent } from './creator/list/list.component';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { ListService } from './services/lists.services';
     LoginComponent,
     RegisterComponent,
     ListCreatorComponent,
+    ListComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'my-app' }),

@@ -1,8 +1,11 @@
 <div class="large-padding">
-    <article *ngFor="let list of lists.lists | async" class="card block large-padding top-space with-badge">
+    <a routerLink="/list/{{list.id}}" *ngFor="let list of lists.lists | async">
+
+    <article  class="card block large-padding top-space with-badge">
         <h4>{{list.title}}</h4>
         <div class="badge">
             <span>0</span>
         </div>
     </article>
+    </a>
 </div>
