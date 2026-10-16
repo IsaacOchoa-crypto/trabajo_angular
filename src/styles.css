@@ -52,6 +52,43 @@
     width: 100%;
 }
 
+.top-space,
 .top-spage {
     margin-top: 1em;
 }
+
+.card {
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgb(0, 0, 0, 0.12), 0 1px 2px rgb(0, 0, 0, 0.24);
+    box-sizing: border-box;
+    position: relative;
+}
+
+.card.with-badge {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-areas: 'title title title title title title title title badge badge';
+}
+
+.card.with-badge h4 {
+    grid-area: title;
+}
+
+.card.with-badge .badge {
+    grid-area: badge;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.card.with-badge .badge span {
+    height: 3em;
+    width: 3em;
+    border-radius: 50%;
+    font-size: 0.7em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+

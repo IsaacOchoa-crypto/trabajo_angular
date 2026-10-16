@@ -1,5 +1,8 @@
-<ul>
-    <li *ngFor="let list of lists.lists | async">
-        {{list.title}}
-    </li>
-</ul>
+<div class="large-padding">
+    <article *ngFor="let list of lists.lists | async" class="card block large-padding top-space with-badge">
+        <h4>{{list.title}}</h4>
+        <div class="badge">
+            <span>0</span>
+        </div>
+    </article>
+</div>

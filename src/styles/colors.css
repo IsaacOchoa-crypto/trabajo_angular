@@ -11,3 +11,13 @@ body {
     background-color: #292c44;
     color: #f0f0f1;
 }
+
+.card{
+    background-color: #f0f0f1;
+    color: #302033;
+}
+
+.card.with-badge .badge span{
+    background-color: #ff5349;
+    color: #f0f0f1;
+}
