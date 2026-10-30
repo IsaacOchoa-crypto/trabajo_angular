@@ -22,6 +22,7 @@ import { FormsModule } from '@angular/forms';
 import { ListService } from './services/lists.services';
 import { ListComponent } from './creator/list/list.component';
 import { TodosCreatorComponent } from './todo/creator/todos.creator.component';
+import { TodoService } from './services/todos.services';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,7 @@ import { TodosCreatorComponent } from './todo/creator/todos.creator.component';
     AngularFireAuthModule,
     FormsModule
   ],
-  providers: [AuthService, AuthGuard, UserService,ListService],
+  providers: [AuthService, AuthGuard, UserService, ListService, TodoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
