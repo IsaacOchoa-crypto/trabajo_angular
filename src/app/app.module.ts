@@ -23,6 +23,8 @@ import { ListService } from './services/lists.services';
 import { ListComponent } from './creator/list/list.component';
 import { TodosCreatorComponent } from './todo/creator/todos.creator.component';
 import { TodoService } from './services/todos.services';
+import { TodosCardComponent } from './todo/card/todo.card.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -33,9 +35,11 @@ import { TodoService } from './services/todos.services';
     ListCreatorComponent,
     ListComponent,
     TodosCreatorComponent,
+    TodosCardComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'my-app' }),
+    BrowserAnimationsModule,
     RouterModule.forRoot(appRoutes),
     TransferHttpCacheModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),

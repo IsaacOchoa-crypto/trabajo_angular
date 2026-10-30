@@ -1,17 +1,24 @@
-import {Component, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { Observable } from "rxjs";
+import { ITodo } from "../../structures/todos";
+import { TodoService } from "../../services/todos.services";
 
 @Component({
     selector: "list",
     templateUrl: "list.component.html"
 })
+export class ListComponent implements OnInit {
+    public listId!: string;
+    public todos!: Observable<ITodo[]>;
 
-export class ListComponent implements OnInit{
-    constructor(private route:ActivatedRoute){
+    constructor(
+        private route: ActivatedRoute,
+        private todoService: TodoService
+    ) {}
 
-    }
     ngOnInit(): void {
-        console.log(this.route.snapshot.params.id)
+        this.listId = this.route.snapshot.params.id;
+        this.todos = this.todoService.getFromList(this.listId);
     }
 }
-
