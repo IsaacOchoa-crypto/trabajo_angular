@@ -5,10 +5,13 @@ import { ITodo } from "../../structures/todos";
     selector: 'todo-card',
     templateUrl: 'todo.card.component.html'
 })
+export class TodosCardComponent implements OnInit {
+    @Input() todo!: ITodo;
 
-export class TodosCardComponent implements OnInit{
-    @Input() todo! : ITodo;
     ngOnInit(): void {
-        
+    }
+
+    completed() {
+        console.log('Swipe');
     }
 }
