@@ -2,7 +2,7 @@
     <a routerLink="/list/{{list.id}}" *ngFor="let list of lists.lists | async">
 
         <article class="card block large-padding top-space with-badge">
-            <h4>{{list.title}}</h4>
+            <h4>{{list.title ? list.title : '(Sin título)'}}</h4>
             <div class="badge">
                 <span>0</span>
             </div>

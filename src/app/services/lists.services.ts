@@ -5,7 +5,7 @@ import { AngularFireAuth } from "@angular/fire/auth";
 import { ILista } from "../structures/lista";
 import * as firebase from "firebase/app";
 import "firebase/firestore";
-import { map, switchMap } from "rxjs/operators";
+import { map, switchMap, take } from "rxjs/operators";
 
 @Injectable()
 export class ListService {
@@ -14,6 +14,13 @@ export class ListService {
     public lists!: Observable<ILista[]>;
 
     constructor(public afs: AngularFirestore, private afAuth: AngularFireAuth) {
+        this.afAuth.authState.subscribe(user => {
+            if (user) {
+                this.uid = user.uid;
+                this.list = this.afs.collection('users').doc(this.uid).collection<ILista>('lists');
+            }
+        });
+
         this.lists = this.afAuth.authState.pipe(
             switchMap(user => {
                 if (!user) return of([]);
@@ -32,11 +39,16 @@ export class ListService {
         );
     }
 
-    add(list: ILista): Promise<any> {
-        if (!this.list && this.uid) {
-            this.list = this.afs.collection('users').doc(this.uid).collection<ILista>('lists');
+    async add(list: ILista): Promise<any> {
+        if (!this.uid) {
+            const user = await this.afAuth.authState.pipe(take(1)).toPromise();
+            if (user) {
+                this.uid = user.uid;
+                this.list = this.afs.collection('users').doc(this.uid).collection<ILista>('lists');
+            }
         }
-        if (!this.list) throw Error('Asignar un valor a la coleccion antes de continuar');
+
+        if (!this.list) throw Error('No se pudo autenticar al usuario para crear la lista.');
         const createdAt = firebase.firestore.FieldValue.serverTimestamp();
 
         list.createdAt = createdAt;

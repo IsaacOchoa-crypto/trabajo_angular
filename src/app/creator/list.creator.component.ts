@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { ILista } from '../structures/lista'
+import { Router } from "@angular/router";
+import { ILista } from '../structures/lista';
 import { ListService } from '../services/lists.services';
 
 @Component({
@@ -13,13 +14,23 @@ export class ListCreatorComponent implements OnInit {
         description: ''
     };
 
-    constructor(private lists: ListService) { }
+    constructor(private lists: ListService, private router: Router) { }
 
     ngOnInit(): void {
-
     }
 
     save() {
-        this.lists.add(this.list).then(console.log);
+        const titleToSave = (this.list.title || '').trim();
+        if (!titleToSave) return;
+
+        const newList: ILista = {
+            title: titleToSave,
+            description: this.list.description || ''
+        };
+
+        this.lists.add(newList).then(() => {
+            this.list = { title: '', description: '' };
+            this.router.navigate(['/']);
+        });
     }
 }
