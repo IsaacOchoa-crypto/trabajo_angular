@@ -1,5 +1,5 @@
 <div class="large-padding">
-    <a routerLink="/list/{{list.id}}" *ngFor="let list of lists.lists | async" [@enterState]>
+    <a routerLink="/list/{{list.id}}" class="block" *ngFor="let list of lists.lists | async" [@enterState]>
 
         <article class="card block large-padding top-space with-badge">
             <h4>{{list.title ? list.title : '(Sin título)'}}</h4>

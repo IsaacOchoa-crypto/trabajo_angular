@@ -12,7 +12,7 @@ import { ListService } from '../services/lists.services';
         opacity: 0
       })),
       transition(':enter', [
-        animate('400ms ease-out', style({
+        animate('500ms cubic-bezier(0.35, 0, 0.25, 1)', style({
           transform: 'translateX(0)',
           opacity: 1
         }))
