@@ -23,7 +23,11 @@ export class TodoService {
 
     setCollection(listId: string) {
         this.listId = listId;
-        this.collection = this.afs.collection('users').doc(this.uid).collection('lists').doc(listId).collection<ITodo>('todos');
+        this.collection = this.afs.collection('users')
+            .doc(this.uid)
+            .collection('lists')
+            .doc(listId)
+            .collection<ITodo>('todos', ref => ref.where('status', '==', 0));
     }
 
     getFromList(listId: string): Observable<ITodo[]> {
@@ -60,19 +64,9 @@ export class TodoService {
         return this.collection.add(todo);
     }
 
-    async update(listId: string, todo: ITodo): Promise<any> {
-        if (!this.uid) {
-            const user = await this.afAuth.authState.pipe(take(1)).toPromise();
-            if (user) {
-                this.uid = user.uid;
-            }
-        }
-        if (!this.collection || this.listId !== listId) {
-            this.setCollection(listId);
-        }
-        if (!todo.id) return;
-        return this.collection.doc(todo.id).update({
-            status: todo.status
-        });
+    update(listId: string, todo: ITodo): Promise<void> {
+        if (!this.collection || this.listId !== listId) this.setCollection(listId);
+
+        return this.collection.doc(todo.id).update({ status: todo.status });
     }
 }
