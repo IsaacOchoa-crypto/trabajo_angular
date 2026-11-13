@@ -122,3 +122,18 @@ button.no-backgraoonf{
 .overflow-hidden{
     overflow: hidden;
 }
+
+.todo-card{
+    position: relative;
+}
+
+.todo-card::after{
+    position: absolute;
+    z-index: -1;
+    content: '\f00c';
+    font-family: FontAwesome;
+    top: 50%;
+    right: -2em;
+    font-weight: bold;
+    color: #18cdca;
+}

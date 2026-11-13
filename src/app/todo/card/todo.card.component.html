@@ -1,4 +1,8 @@
-<article class="card large-padding top-space block" (swipeleft)="completed()">
+<article class="card large-padding top-space block todo-card" 
+    (click)="press = press === 'up' ? 'down' : 'up'"
+    [@statusAnimation]="todo.status"
+    [@pressAnimation]="press"
+    (swipeleft)="completed()">
     <h4>{{todo.content}}</h4>
     <p *ngIf="todo.description">{{todo.description}}</p>
 </article>

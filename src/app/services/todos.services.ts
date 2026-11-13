@@ -5,7 +5,7 @@ import { ITodo } from "../structures/todos";
 import * as firebase from "firebase/app";
 import "firebase/firestore";
 import { Observable, of } from "rxjs";
-import { map, switchMap } from "rxjs/operators";
+import { map, switchMap, take } from "rxjs/operators";
 
 @Injectable()
 export class TodoService {
@@ -45,12 +45,34 @@ export class TodoService {
         );
     }
 
-    add(listId: string, todo: ITodo): Promise<any> {
+    async add(listId: string, todo: ITodo): Promise<any> {
+        if (!this.uid) {
+            const user = await this.afAuth.authState.pipe(take(1)).toPromise();
+            if (user) {
+                this.uid = user.uid;
+            }
+        }
         if (!this.collection || this.listId !== listId) {
             this.setCollection(listId);
         }
         const createdAt = firebase.firestore.FieldValue.serverTimestamp();
         todo.createdAt = createdAt;
         return this.collection.add(todo);
+    }
+
+    async update(listId: string, todo: ITodo): Promise<any> {
+        if (!this.uid) {
+            const user = await this.afAuth.authState.pipe(take(1)).toPromise();
+            if (user) {
+                this.uid = user.uid;
+            }
+        }
+        if (!this.collection || this.listId !== listId) {
+            this.setCollection(listId);
+        }
+        if (!todo.id) return;
+        return this.collection.doc(todo.id).update({
+            status: todo.status
+        });
     }
 }

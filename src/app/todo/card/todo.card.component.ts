@@ -1,17 +1,54 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { ITodo } from "../../structures/todos";
+import { ITodo, IStatus } from "../../structures/todos"; 
+import { trigger, state, style, animate, transition } from "@angular/animations";
+import { TodoService } from "../../services/todos.services";
 
 @Component({
     selector: 'todo-card',
-    templateUrl: 'todo.card.component.html'
+    templateUrl: './todo.card.component.html',
+    animations: [
+        trigger('statusAnimation', [
+            state('0, void', style({
+                transform: 'translateX(0)',
+                opacity: 1
+            })),
+            state('1', style({
+                transform: 'translateX(-100%)',
+                opacity: 0
+            })),
+            transition('0 => 1', [
+                animate(200, style({transform: 'translateX(0)', opacity: 0})),
+                animate(200)    
+            ])
+        ]),
+        trigger('pressAnimation', [
+            state('up, void', style({
+                transform: 'translateX(0)'
+            })),
+            state('down', style({
+                transform: 'translateX(-100px)'
+            })),
+            transition('up <=> down', [
+                animate(100, style({transform: 'translateX(0)'})),
+                animate(100)
+            ])
+        ])
+    ]
 })
 export class TodosCardComponent implements OnInit {
     @Input() todo!: ITodo;
+    @Input() listId!: string;
+    public press: string = 'up';
+
+    constructor(private todoService: TodoService) {}
 
     ngOnInit(): void {
     }
 
     completed() {
-        console.log('Swipe');
+        this.todo.status = IStatus.Completed; 
+        if (this.listId) {
+            this.todoService.update(this.listId, this.todo);
+        }
     }
 }
