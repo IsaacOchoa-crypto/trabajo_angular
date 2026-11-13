@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { ITodo, IStatus } from "../../structures/todos"; 
 import { trigger, state, style, animate, transition } from "@angular/animations";
-import { TodoService } from "../../services/todos.services";
 
 @Component({
     selector: 'todo-card',
@@ -37,18 +36,12 @@ import { TodoService } from "../../services/todos.services";
 })
 export class TodosCardComponent implements OnInit {
     @Input() todo!: ITodo;
-    @Input() listId!: string;
     public press: string = 'up';
-
-    constructor(private todoService: TodoService) {}
 
     ngOnInit(): void {
     }
 
     completed() {
         this.todo.status = IStatus.Completed; 
-        if (this.listId) {
-            this.todoService.update(this.listId, this.todo);
-        }
     }
 }
