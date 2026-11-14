@@ -12,6 +12,8 @@ export class ListComponent implements OnInit {
     public listId!: string;
     public todos!: Observable<ITodo[]>;
 
+    tackTodoobject = (id : any,obj: {id:any}) => obj.id;
+
     constructor(
         private route: ActivatedRoute,
         private todoService: TodoService

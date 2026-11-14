@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { trigger, state, style, transition, animate } from '@angular/animations';
+import { trigger, style, transition, animate, query, stagger } from '@angular/animations';
 import { ListService } from '../services/lists.services';
 
 @Component({
@@ -7,15 +7,13 @@ import { ListService } from '../services/lists.services';
   templateUrl: './home.component.html',
   animations: [
     trigger('enterState', [
-      state('void', style({
-        transform: 'translateX(-100%)',
-        opacity: 0
-      })),
-      transition(':enter', [
-        animate('500ms cubic-bezier(0.35, 0, 0.25, 1)', style({
-          transform: 'translateX(0)',
-          opacity: 1
-        }))
+      transition('* => *', [
+        query(':enter', [
+          style({ transform: 'translateX(-100%)', opacity: 0 }),
+          stagger('50ms', [
+            animate('500ms ease-out', style({ transform: 'translateX(0)', opacity: 1 }))
+          ])
+        ], { optional: true })
       ])
     ])
   ]

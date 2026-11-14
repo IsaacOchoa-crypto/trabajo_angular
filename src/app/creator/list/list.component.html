@@ -1,4 +1,6 @@
 <div class="large-padding">
     <todo-creator [id]="listId"></todo-creator>
-    <todo-card *ngFor="let todo of todos | async" [todo]="todo" [listId]="listId"></todo-card>
+    <todo-card *ngFor="let todo of todos | async;trackBy:trackTodoobject" [todo]="todo" [listId]="listId"></todo-card>
 </div>
+
+

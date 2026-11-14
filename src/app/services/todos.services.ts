@@ -28,6 +28,7 @@ export class TodoService {
             .collection('lists')
             .doc(listId)
             .collection<ITodo>('todos', ref => ref.where('status', '==', 0));
+            //this.ref = this.collection.snapshotChanges().shere();
     }
 
     getFromList(listId: string): Observable<ITodo[]> {
